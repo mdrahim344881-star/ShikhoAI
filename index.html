@@ -1,49 +1,52 @@
-html lang="bn">
+
+<!DOCTYPE html>
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShikhoAI</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #081329;
   color: white;
 }
+
 header {
   padding: 22px;
   text-align: center;
   background: #122750;
 }
+
 header h1 {
   color: #66a5ff;
   font-size: 30px;
 }
+
 main {
   padding: 22px;
   max-width: 600px;
   margin: auto;
 }
+
 .hero {
   text-align: center;
   padding: 35px 10px;
 }
-.hero h2 {
-  font-size: 27px;
-}
-.hero p {
-  color: #b9c8e4;
-}
+
+.hero p { color: #b9c8e4; }
+
 .card {
   background: #14264a;
   padding: 20px;
   border-radius: 15px;
   margin: 15px 0;
 }
+
 button {
   width: 100%;
   padding: 14px;
@@ -54,6 +57,7 @@ button {
   font-size: 16px;
   margin-top: 12px;
 }
+
 input {
   width: 100%;
   padding: 13px;
@@ -61,7 +65,8 @@ input {
   border: none;
   margin-top: 10px;
 }
-#result {
+
+#result, #quizResult {
   color: #91c5ff;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -85,29 +90,26 @@ input {
   <div class="card">
     <h3>📚 AI শিক্ষক</h3>
     <p>তোমার প্রশ্ন লিখে শেখা শুরু করো।</p>
-    <input id="question"
-      placeholder="তোমার প্রশ্ন লেখো...">
-    <button onclick="askQuestion()">
-      প্রশ্ন জমা দাও
-    </button>
+
+    <input id="question" placeholder="তোমার প্রশ্ন লেখো...">
+
+    <button onclick="askAI()">প্রশ্ন জমা দাও</button>
+
     <p id="result"></p>
   </div>
 
   <div class="card">
     <h3>📝 Quiz Center</h3>
     <p>প্রতিদিন নতুন কিছু শেখো।</p>
-    <button onclick="quiz()">
-      Start Quiz
-    </button>
+    <button onclick="quiz()">Start Quiz</button>
     <p id="quizResult"></p>
   </div>
-
 </main>
 
 <script>
-  async function askAI() {
+async function askAI() {
   const q = document.getElementById("question").value.trim();
-  const answer = document.getElementById("answer");
+  const answer = document.getElementById("result");
 
   if (!q) return alert("প্রশ্ন লেখো!");
 
@@ -133,4 +135,13 @@ input {
   } catch (error) {
     answer.innerText = "সমস্যা হয়েছে: " + error.message;
   }
-  }
+}
+
+function quiz() {
+  document.getElementById("quizResult").innerText =
+    "Quiz Center শীঘ্রই চালু হবে!";
+}
+</script>
+
+</body>
+</html>
