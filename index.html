@@ -105,23 +105,32 @@ input {
 </main>
 
 <script>
-function askQuestion() {
-  let q = document.getElementById("question").value;
+  async function askAI() {
+  const q = document.getElementById("question").value.trim();
+  const answer = document.getElementById("answer");
 
-  if (q.trim() === "") {
-    alert("প্রথমে প্রশ্ন লেখো!");
-  } else {
-    document.getElementById("result").innerText =
-      "তোমার প্রশ্ন: " + q +
-      "\nAI শিক্ষক ফিচার শিগগিরই যুক্ত হবে!";
+  if (!q) return alert("প্রশ্ন লেখো!");
+
+  answer.innerText = "AI উত্তর তৈরি করছে...";
+
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ question: q })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
+
+    answer.innerText = data.answer;
+
+  } catch (error) {
+    answer.innerText = "সমস্যা হয়েছে: " + error.message;
   }
-}
-
-function quiz() {
-  document.getElementById("quizResult").innerText =
-    "Quiz Center শিগগিরই চালু হবে!";
-}
-</script>
-
-</body>
-</html>
+  }
